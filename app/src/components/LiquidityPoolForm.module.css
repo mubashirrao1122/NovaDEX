@@ -1,0 +1,116 @@
+.container {
+  max-width: 500px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #1a1a2e;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+.toggleContainer {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.toggleButton {
+  background-color: transparent;
+  border: none;
+  color: #8a8aa0;
+  padding: 8px 16px;
+  font-size: 16px;
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+  transition: all 0.3s ease;
+}
+
+.toggleButton.active {
+  color: #7ca4fa;
+  border-bottom: 2px solid #7ca4fa;
+}
+
+.formGroup {
+  margin-bottom: 20px;
+}
+
+.formGroup label {
+  display: block;
+  margin-bottom: 8px;
+  color: #dcdcdc;
+}
+
+.formGroup input,
+.formGroup select {
+  width: 100%;
+  padding: 12px;
+  background-color: #292941;
+  border: 1px solid #444464;
+  border-radius: 8px;
+  color: #ffffff;
+  font-size: 16px;
+}
+
+.formGroup input:focus,
+.formGroup select:focus {
+  outline: none;
+  border-color: #7ca4fa;
+}
+
+.plusIcon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 15px 0;
+  font-size: 24px;
+  color: #7ca4fa;
+}
+
+.submitButton {
+  width: 100%;
+  padding: 14px;
+  background: linear-gradient(90deg, #7ca4fa, #9c6ffa);
+  border: none;
+  border-radius: 8px;
+  color: white;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.submitButton:hover {
+  background: linear-gradient(90deg, #6b93e9, #8b5ee9);
+}
+
+.walletButton {
+  width: 100% !important;
+  padding: 14px !important;
+  background: linear-gradient(90deg, #7ca4fa, #9c6ffa) !important;
+  border: none !important;
+  border-radius: 8px !important;
+  color: white !important;
+  font-size: 16px !important;
+  font-weight: 600 !important;
+  cursor: pointer !important;
+  transition: all 0.3s ease !important;
+}
+
+.walletButton:hover {
+  background: linear-gradient(90deg, #6b93e9, #8b5ee9) !important;
+}
+
+.infoBox {
+  margin-top: 20px;
+  padding: 12px;
+  background-color: rgba(124, 164, 250, 0.1);
+  border: 1px solid rgba(124, 164, 250, 0.3);
+  border-radius: 8px;
+  color: #dcdcdc;
+  font-size: 14px;
+}
+
+@media (max-width: 600px) {
+  .container {
+    padding: 15px;
+  }
+}

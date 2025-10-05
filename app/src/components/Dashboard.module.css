@@ -1,0 +1,319 @@
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.tabs {
+  display: flex;
+  margin-bottom: 24px;
+  border-bottom: 1px solid #444464;
+}
+
+.tabButton {
+  background: none;
+  border: none;
+  padding: 12px 24px;
+  font-size: 16px;
+  color: #8a8aa0;
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+  transition: all 0.3s ease;
+}
+
+.tabButton:hover {
+  color: #dcdcdc;
+}
+
+.tabButton.active {
+  color: #7ca4fa;
+  border-bottom: 2px solid #7ca4fa;
+}
+
+.tabContent {
+  margin-top: 20px;
+}
+
+.connectPrompt {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 40px;
+  background-color: #1a1a2e;
+  border-radius: 12px;
+  text-align: center;
+}
+
+.connectPrompt p {
+  margin-bottom: 20px;
+  font-size: 18px;
+  color: #dcdcdc;
+}
+
+.walletButton {
+  max-width: 250px !important;
+  padding: 14px !important;
+  background: linear-gradient(90deg, #7ca4fa, #9c6ffa) !important;
+  border: none !important;
+  border-radius: 8px !important;
+  color: white !important;
+  font-size: 16px !important;
+  font-weight: 600 !important;
+  cursor: pointer !important;
+  transition: all 0.3s ease !important;
+}
+
+.walletButton:hover {
+  background: linear-gradient(90deg, #6b93e9, #8b5ee9) !important;
+}
+
+.emptyState {
+  text-align: center;
+  padding: 40px;
+  color: #8a8aa0;
+  background-color: #1a1a2e;
+  border-radius: 12px;
+  font-size: 18px;
+}
+
+/* Position styles */
+.positionsContainer {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  gap: 20px;
+  margin-bottom: 30px;
+}
+
+.positionCard {
+  background-color: #1a1a2e;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.positionHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+  padding-bottom: 15px;
+  border-bottom: 1px solid #2a2a40;
+}
+
+.positionPair {
+  font-size: 18px;
+  font-weight: 600;
+  color: #ffffff;
+}
+
+.positionType {
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.liquidity {
+  background-color: rgba(124, 164, 250, 0.15);
+  color: #7ca4fa;
+}
+
+.long {
+  background-color: rgba(46, 213, 115, 0.15);
+  color: #2ed573;
+}
+
+.short {
+  background-color: rgba(255, 71, 87, 0.15);
+  color: #ff4757;
+}
+
+.positionDetails {
+  margin-bottom: 20px;
+}
+
+.detailRow {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.detailLabel {
+  color: #8a8aa0;
+}
+
+.detailValue {
+  color: #dcdcdc;
+  font-weight: 500;
+}
+
+.profit {
+  color: #2ed573 !important;
+}
+
+.loss {
+  color: #ff4757 !important;
+}
+
+.positionActions {
+  display: flex;
+  justify-content: center;
+}
+
+.actionButton {
+  width: 100%;
+  padding: 12px;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  background-color: #3a3a50;
+  color: #dcdcdc;
+  transition: all 0.3s ease;
+}
+
+.actionButton:hover {
+  background-color: #444464;
+}
+
+.closeLong {
+  background-color: rgba(46, 213, 115, 0.15);
+  color: #2ed573;
+}
+
+.closeLong:hover {
+  background-color: rgba(46, 213, 115, 0.25);
+}
+
+.closeShort {
+  background-color: rgba(255, 71, 87, 0.15);
+  color: #ff4757;
+}
+
+.closeShort:hover {
+  background-color: rgba(255, 71, 87, 0.25);
+}
+
+/* Analytics styles */
+.analyticsContainer {
+  margin-bottom: 30px;
+}
+
+.statsCards {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 20px;
+  margin-bottom: 30px;
+}
+
+.statCard {
+  background-color: #1a1a2e;
+  border-radius: 12px;
+  padding: 20px;
+  text-align: center;
+}
+
+.statCard h3 {
+  color: #8a8aa0;
+  font-size: 16px;
+  margin-bottom: 10px;
+}
+
+.statValue {
+  color: #ffffff;
+  font-size: 24px;
+  font-weight: 600;
+}
+
+.chartContainer {
+  background-color: #1a1a2e;
+  border-radius: 12px;
+  padding: 20px;
+}
+
+.chartContainer h3 {
+  color: #dcdcdc;
+  margin-bottom: 20px;
+}
+
+.mockChart {
+  height: 200px;
+  display: flex;
+  flex-direction: column;
+}
+
+.chartLabel {
+  color: #8a8aa0;
+  margin-bottom: 10px;
+}
+
+.chartBars {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  height: 100%;
+}
+
+.chartBar {
+  width: 30px;
+  background: linear-gradient(180deg, #7ca4fa, #9c6ffa);
+  border-radius: 4px 4px 0 0;
+  margin: 0 5px;
+}
+
+/* History styles */
+.historyContainer {
+  background-color: #1a1a2e;
+  border-radius: 12px;
+  padding: 20px;
+  overflow-x: auto;
+}
+
+.historyTable {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.historyTable th {
+  text-align: left;
+  padding: 12px 15px;
+  border-bottom: 1px solid #2a2a40;
+  color: #8a8aa0;
+}
+
+.historyTable td {
+  padding: 15px;
+  border-bottom: 1px solid #2a2a40;
+  color: #dcdcdc;
+}
+
+.tradeType {
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.swap {
+  background-color: rgba(124, 164, 250, 0.15);
+  color: #7ca4fa;
+}
+
+.addLiquidity {
+  background-color: rgba(156, 111, 250, 0.15);
+  color: #9c6ffa;
+}
+
+.complete {
+  color: #2ed573;
+}
+
+@media (max-width: 768px) {
+  .positionsContainer {
+    grid-template-columns: 1fr;
+  }
+  
+  .statsCards {
+    grid-template-columns: 1fr;
+  }
+}

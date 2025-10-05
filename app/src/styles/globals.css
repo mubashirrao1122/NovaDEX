@@ -1,0 +1,156 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* Jupiter-inspired color scheme */
+    --background: #0d0d0d;
+    --foreground: #ffffff;
+
+    /* Card & Popover - Subtle dark with slight blue tint */
+    --card: #191a1e;
+    --card-foreground: #ffffff;
+    --popover: #191a1e;
+    --popover-foreground: #ffffff;
+
+    /* Primary - Jupiter Green */
+    --primary: #19fb9b;
+    --primary-dark: #14d183;
+    --primary-foreground: #000000;
+
+    /* Secondary - Soft Blue */
+    --secondary: #3b82f6;
+    --secondary-dark: #2563eb;
+    --secondary-foreground: #ffffff;
+
+    /* Success - Bright Green */
+    --success: #19fb9b;
+    --success-dark: #14d183;
+    --success-foreground: #000000;
+
+    /* Warning - Jupiter Orange */
+    --warning: #ff9500;
+    --warning-dark: #e6850e;
+    --warning-foreground: #ffffff;
+
+    /* Destructive - Clean Red */
+    --destructive: #f87171;
+    --destructive-dark: #ef4444;
+    --destructive-foreground: #ffffff;
+
+    /* Muted - Neutral Gray */
+    --muted: #6b7280;
+    --muted-foreground: #9ca3af;
+
+    /* Accent - Subtle highlight */
+    --accent: #1f2937;
+    --accent-foreground: #ffffff;
+
+    /* Border & Input - Clean separators */
+    --border: #374151;
+    --input: #1f2937;
+    --ring: #19fb9b;
+
+    /* Border Radius - Modern rounded corners */
+    --radius: 0.75rem;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+    font-feature-settings: "rlig" 1, "calt" 1;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+  }
+}
+
+/* Custom gradients */
+.gradient-primary {
+  background: linear-gradient(135deg, #19fb9b 0%, #14d183 100%);
+}
+
+.gradient-card {
+  background: linear-gradient(135deg, #191a1e 0%, #1f2937 100%);
+}
+
+.gradient-border {
+  border-image: linear-gradient(135deg, #19fb9b, #3b82f6) 1;
+}
+
+/* Custom scrollbar - Jupiter style */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #0d0d0d;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #374151;
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #4b5563;
+}
+
+/* Jupiter-inspired button styles */
+.btn-primary {
+  @apply bg-primary text-primary-foreground font-semibold py-3 px-6 rounded-xl transition-all duration-200 hover:bg-primary-dark hover:scale-105 active:scale-95;
+}
+
+.btn-secondary {
+  @apply bg-secondary text-secondary-foreground font-semibold py-3 px-6 rounded-xl transition-all duration-200 hover:bg-secondary-dark hover:scale-105 active:scale-95;
+}
+
+.btn-ghost {
+  @apply bg-transparent border border-border text-foreground font-semibold py-3 px-6 rounded-xl transition-all duration-200 hover:bg-accent hover:scale-105 active:scale-95;
+}
+
+/* Jupiter-inspired card styles */
+.card-modern {
+  @apply bg-card border border-border rounded-2xl p-6 shadow-lg backdrop-blur-sm;
+}
+
+.card-hover {
+  @apply transition-all duration-200 hover:shadow-xl hover:scale-[1.02];
+}
+
+/* Wallet adapter custom styles - Jupiter theme */
+.wallet-adapter-button {
+  background: linear-gradient(135deg, #19fb9b 0%, #14d183 100%) !important;
+  border: none !important;
+  color: #000000 !important;
+  font-family: 'Inter', sans-serif !important;
+  font-size: 14px !important;
+  font-weight: 600 !important;
+  height: auto !important;
+  padding: 12px 20px !important;
+  border-radius: 12px !important;
+  transition: all 0.2s ease !important;
+}
+
+.wallet-adapter-button:hover {
+  transform: scale(1.05) !important;
+  box-shadow: 0 8px 25px rgba(25, 251, 155, 0.3) !important;
+}
+
+.wallet-adapter-modal-wrapper {
+  background-color: #191a1e !important;
+  border-radius: 16px !important;
+}
+
+.wallet-adapter-modal-button-close {
+  background-color: #374151 !important;
+  border-radius: 8px !important;
+}
+
+.wallet-adapter-modal-button-close:hover {
+  background-color: #4b5563 !important;
+}
