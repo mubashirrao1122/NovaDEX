@@ -1,0 +1,123 @@
+version: '3.8'
+
+services:
+  # PostgreSQL Database
+  postgres:
+    image: postgres:15
+    environment:
+      POSTGRES_DB: novadex_db
+      POSTGRES_USER: novadex_user
+      POSTGRES_PASSWORD: your_password
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./database/init:/docker-entrypoint-initdb.d
+    networks:
+      - novadex_network
+    restart: unless-stopped
+
+  # PostgreSQL for Analytics
+  postgres_analytics:
+    image: postgres:15
+    environment:
+      POSTGRES_DB: novadex_analytics
+      POSTGRES_USER: analytics_user
+      POSTGRES_PASSWORD: analytics_password
+    ports:
+      - "5433:5432"
+    volumes:
+      - postgres_analytics_data:/var/lib/postgresql/data
+      - ./database/analytics:/docker-entrypoint-initdb.d
+    networks:
+      - novadex_network
+    restart: unless-stopped
+
+  # Redis Cache
+  redis:
+    image: redis:7-alpine
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    networks:
+      - novadex_network
+    restart: unless-stopped
+    command: redis-server --requirepass your_redis_password
+
+  # Redis for Sessions
+  redis_sessions:
+    image: redis:7-alpine
+    ports:
+      - "6380:6379"
+    volumes:
+      - redis_sessions_data:/data
+    networks:
+      - novadex_network
+    restart: unless-stopped
+
+  # ClickHouse for Analytics (High-performance analytics DB)
+  clickhouse:
+    image: clickhouse/clickhouse-server:latest
+    ports:
+      - "8123:8123"
+      - "9000:9000"
+    volumes:
+      - clickhouse_data:/var/lib/clickhouse
+      - ./database/clickhouse:/docker-entrypoint-initdb.d
+    networks:
+      - novadex_network
+    restart: unless-stopped
+
+  # Backup Service
+  backup_service:
+    image: postgres:15
+    depends_on:
+      - postgres
+      - postgres_analytics
+    volumes:
+      - ./backups:/backups
+      - ./scripts/backup.sh:/backup.sh
+    networks:
+      - novadex_network
+    restart: unless-stopped
+    entrypoint: ["sh", "/backup.sh"]
+
+  # Monitoring with Prometheus
+  prometheus:
+    image: prom/prometheus:latest
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./monitoring/prometheus.yml:/etc/prometheus/prometheus.yml
+      - prometheus_data:/prometheus
+    networks:
+      - novadex_network
+    restart: unless-stopped
+
+  # Grafana for Dashboards
+  grafana:
+    image: grafana/grafana:latest
+    ports:
+      - "3001:3000"
+    volumes:
+      - grafana_data:/var/lib/grafana
+      - ./monitoring/grafana:/etc/grafana/provisioning
+    environment:
+      - GF_SECURITY_ADMIN_PASSWORD=admin
+    networks:
+      - novadex_network
+    restart: unless-stopped
+
+volumes:
+  postgres_data:
+  postgres_analytics_data:
+  redis_data:
+  redis_sessions_data:
+  clickhouse_data:
+  prometheus_data:
+  grafana_data:
+
+networks:
+  novadex_network:
+    driver: bridge

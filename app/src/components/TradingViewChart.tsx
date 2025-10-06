@@ -38,86 +38,59 @@ const TradingViewChart: React.FC<TradingViewChartProps> = memo(({
     if (!chartContainerRef.current) return;
 
     // Clear previous widget
-    if (widgetRef.current) {
+    if (chartContainerRef.current) {
       chartContainerRef.current.innerHTML = '';
     }
 
     setIsLoading(true);
 
-    // Create TradingView widget script
-    const script = document.createElement('script');
-    script.src = 'https://s3.tradingview.com/external-embedding/embed-widget-advanced-chart.js';
-    script.type = 'text/javascript';
-    script.async = true;
-
-    const widgetConfig = {
-      autosize: true,
-      symbol: `BINANCE:${symbol}`,
-      interval: interval,
-      timezone: "Etc/UTC",
-      theme: theme,
-      style: "1",
-      locale: "en",
-      allow_symbol_change: true,
-      support_host: "https://www.tradingview.com",
-      container_id: "tradingview_chart",
-      // Professional features
-      studies: [
-        "Volume@tv-basicstudies",
-        "MACD@tv-basicstudies"
-      ],
-      toolbar_bg: "#f1f3f6",
-      hide_top_toolbar: false,
-      hide_legend: false,
-      save_image: true,
-      hide_volume: false,
-      details: true,
-      hotlist: true,
-      calendar: true,
-      studies_overrides: {},
-      overrides: {
-        "paneProperties.background": theme === 'dark' ? "#1a1a1a" : "#ffffff",
-        "paneProperties.vertGridProperties.color": theme === 'dark' ? "#2a2a2a" : "#e6e6e6",
-        "paneProperties.horzGridProperties.color": theme === 'dark' ? "#2a2a2a" : "#e6e6e6",
-        "symbolWatermarkProperties.transparency": 90,
-        "scalesProperties.textColor": theme === 'dark' ? "#ffffff" : "#000000",
-        "scalesProperties.backgroundColor": theme === 'dark' ? "#1a1a1a" : "#ffffff"
-      }
-    };
-
-    script.innerHTML = JSON.stringify(widgetConfig);
-
-    script.onload = () => {
-      setIsLoading(false);
-    };
-
-    script.onerror = () => {
-      setIsLoading(false);
-      // Fallback to simple chart display
+    // Create TradingView widget using iframe method for better reliability
+    const createTradingViewWidget = () => {
+      const widgetId = `tradingview_${Math.random().toString(36).substr(2, 9)}`;
+      
       if (chartContainerRef.current) {
         chartContainerRef.current.innerHTML = `
-          <div class="flex items-center justify-center h-full bg-gray-800 rounded-lg">
-            <div class="text-center text-white">
-              <div class="text-4xl mb-4">📊</div>
-              <h3 class="text-xl font-bold mb-2">Chart Loading...</h3>
-              <p class="text-gray-400">TradingView chart for ${symbol}</p>
+          <div id="${widgetId}" style="height: ${height}px; width: 100%;">
+            <!-- TradingView Widget BEGIN -->
+            <div class="tradingview-widget-container" style="height:100%;width:100%">
+              <div class="tradingview-widget-container__widget" style="height:calc(100% - 32px);width:100%"></div>
+              <div class="tradingview-widget-copyright">
+                <a href="https://www.tradingview.com/" rel="noopener nofollow" target="_blank">
+                  <span class="blue-text">Track all markets on TradingView</span>
+                </a>
+              </div>
+              <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-advanced-chart.js" async>
+              {
+                "autosize": true,
+                "symbol": "BINANCE:${symbol}",
+                "interval": "${interval}",
+                "timezone": "Etc/UTC",
+                "theme": "${theme}",
+                "style": "1",
+                "locale": "en",
+                "allow_symbol_change": true,
+                "calendar": false,
+                "support_host": "https://www.tradingview.com"
+              }
+              </script>
             </div>
+            <!-- TradingView Widget END -->
           </div>
         `;
+        setIsLoading(false);
       }
     };
 
-    if (chartContainerRef.current) {
-      chartContainerRef.current.appendChild(script);
-    }
+    // Delay widget creation to ensure DOM is ready
+    setTimeout(createTradingViewWidget, 100);
 
     // Cleanup
     return () => {
-      if (widgetRef.current && typeof widgetRef.current.remove === 'function') {
-        widgetRef.current.remove();
+      if (chartContainerRef.current) {
+        chartContainerRef.current.innerHTML = '';
       }
     };
-  }, [symbol, interval, theme]);
+  }, [symbol, interval, theme, height]);
 
   // Fetch real market data
   useEffect(() => {
@@ -223,7 +196,32 @@ const TradingViewChart: React.FC<TradingViewChartProps> = memo(({
           className="tradingview-widget-container"
           style={{ height: `${height}px`, width: '100%' }}
         >
-          <div className="tradingview-widget-container__widget"></div>
+          {/* Fallback content if TradingView fails */}
+          <div className="flex items-center justify-center h-full bg-gray-800/50 rounded-lg">
+            <div className="text-center text-white p-8">
+              <div className="text-6xl mb-6">📈</div>
+              <h3 className="text-2xl font-bold mb-4">Live Trading Chart</h3>
+              <p className="text-gray-400 mb-6">Professional TradingView Chart for {symbol}</p>
+              <div className="grid grid-cols-2 gap-4 text-sm">
+                <div className="bg-gray-700/50 p-3 rounded">
+                  <div className="text-gray-400">Price</div>
+                  <div className="text-xl font-bold text-green-400">{marketData.price}</div>
+                </div>
+                <div className="bg-gray-700/50 p-3 rounded">
+                  <div className="text-gray-400">24h Change</div>
+                  <div className={`text-xl font-bold ${marketData.change24h.startsWith('+') ? 'text-green-400' : 'text-red-400'}`}>
+                    {marketData.change24h}
+                  </div>
+                </div>
+              </div>
+              <button 
+                className="mt-6 px-4 py-2 bg-primary text-black rounded-lg font-medium hover:bg-primary/90 transition-colors"
+                onClick={() => window.location.reload()}
+              >
+                Reload Chart
+              </button>
+            </div>
+          </div>
         </div>
 
         {/* Chart powered by TradingView watermark */}

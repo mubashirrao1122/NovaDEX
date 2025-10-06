@@ -12,6 +12,9 @@ import SocialTrading from '@/components/SocialTrading';
 import YieldStrategies from '@/components/YieldStrategies';
 import AdvancedOrderTypes from '@/components/AdvancedOrderTypes';
 import TradingViewChart from '@/components/TradingViewChart';
+import TradingViewWidget from '@/components/TradingViewWidget';
+import TradingViewEmbed from '@/components/TradingViewEmbed';
+import SimpleChart from '@/components/SimpleChart';
 import JupiterLimitOrder from '@/components/JupiterLimitOrder';
 import JupiterDCA from '@/components/JupiterDCA';
 import { useState } from 'react';
@@ -57,25 +60,34 @@ export default function Trading() {
             <div className="w-full">
               <div className="flex flex-wrap gap-2 p-2 bg-gray-900/80 backdrop-blur-sm border border-gray-800 rounded-lg mb-4">
                 <TabButton active={activeTab === 'tradingview'} onClick={() => setActiveTab('tradingview')}>
-                  TradingView
+                  📈 TradingView Pro
+                </TabButton>
+                <TabButton active={activeTab === 'tradingview-widget'} onClick={() => setActiveTab('tradingview-widget')}>
+                  📊 TradingView Alt
+                </TabButton>
+                <TabButton active={activeTab === 'tradingview-embed'} onClick={() => setActiveTab('tradingview-embed')}>
+                  🔗 TradingView Embed
+                </TabButton>
+                <TabButton active={activeTab === 'simple-chart'} onClick={() => setActiveTab('simple-chart')}>
+                  📉 Simple Chart
                 </TabButton>
                 <TabButton active={activeTab === 'jupiter-limit'} onClick={() => setActiveTab('jupiter-limit')}>
-                  Jupiter Limit
+                  🎯 Jupiter Limit
                 </TabButton>
                 <TabButton active={activeTab === 'jupiter-dca'} onClick={() => setActiveTab('jupiter-dca')}>
-                  Jupiter DCA
+                  ⚡ Jupiter DCA
                 </TabButton>
                 <TabButton active={activeTab === 'chart'} onClick={() => setActiveTab('chart')}>
-                  Basic Chart
+                  📋 Basic Chart
                 </TabButton>
                 <TabButton active={activeTab === 'positions'} onClick={() => setActiveTab('positions')}>
-                  Positions
+                  💼 Positions
                 </TabButton>
                 <TabButton active={activeTab === 'options'} onClick={() => setActiveTab('options')}>
-                  Options
+                  🔮 Options
                 </TabButton>
                 <TabButton active={activeTab === 'social'} onClick={() => setActiveTab('social')}>
-                  Social
+                  👥 Social
                 </TabButton>
                 <TabButton active={activeTab === 'yield'} onClick={() => setActiveTab('yield')}>
                   Yield
@@ -86,6 +98,18 @@ export default function Trading() {
               <div className="mt-4">
                 {activeTab === 'tradingview' && (
                   <TradingViewChart symbol={selectedPair} />
+                )}
+                
+                {activeTab === 'tradingview-widget' && (
+                  <TradingViewWidget symbol={selectedPair} />
+                )}
+                
+                {activeTab === 'tradingview-embed' && (
+                  <TradingViewEmbed symbol={selectedPair} />
+                )}
+                
+                {activeTab === 'simple-chart' && (
+                  <SimpleChart symbol={selectedPair} />
                 )}
                 
                 {activeTab === 'jupiter-limit' && (
